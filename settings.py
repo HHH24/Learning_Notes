@@ -3,7 +3,13 @@ from os.path import dirname
 from os import sep
 from PyQt5.Qt import *
 
-source_path = dirname(dirname(__file__)) + sep + 'source'
+class Settings:
+    def __init__(self):
+        self.source_path = dirname(dirname(__file__)) + sep + 'source'
+        self.icon_path = self.source_path + sep + 'icon.png'  # str
+        self.icon = QIcon(self.icon_path)
+        self.window_title = 'Learning Notes'
 
-icon_path = source_path + sep + 'icon.png'    # str
-icon = QIcon(icon_path)
+
+if __name__ == '__main__':
+    settings = Settings()
