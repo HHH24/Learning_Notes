@@ -2,6 +2,7 @@ import os
 from os.path import dirname
 from os import sep
 from PyQt5.Qt import *
+from app import app
 
 class Settings:
     def __init__(self):

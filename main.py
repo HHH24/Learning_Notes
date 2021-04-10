@@ -4,17 +4,11 @@ __author__ = 'HHH'
 # Import packages
 import sys
 from PyQt5.Qt import *
+from app import app
 from settings import Settings
+from classes import *
 
-# Create app
-app = QApplication(sys.argv)
-
-# Create setting
-settings = Settings()
-
-# Create main window
-main_window = QWidget()
-main_window.setWindowTitle(settings.window_title)
+main_window = MainWindow()
 main_window.show()
 
 # Main project
