@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'HHH'
 
-# Import packages
-import sys
-from PyQt5.Qt import *
-from app import app
-from settings import Settings
-from classes import *
+from __init__ import *
 
 main_window = MainWindow()
 main_window.show()

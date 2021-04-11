@@ -1,7 +1,4 @@
-import sys
-from PyQt5.Qt import *
-from app import app
-from settings import Settings
+from __init__ import *
 
 settings = Settings()
 
