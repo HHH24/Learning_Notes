@@ -2,7 +2,7 @@ from __init__ import *
 
 settings = Settings()
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     """Main Window"""
 
     def __init__(self, width=500, height=500):
