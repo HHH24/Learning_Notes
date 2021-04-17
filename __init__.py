@@ -6,7 +6,6 @@ from PyQt5.Qt import *
 
 app = QApplication(sys.argv)
 
-
 from settings import *
 from classes import *
 from main import *

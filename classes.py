@@ -9,14 +9,36 @@ class MainWindow(QMainWindow):
         """Initialize as the top window"""
         super().__init__()
         self.resize(width, height)
-        self.setup_ui()
+        self.setup()
 
-    def setup_ui(self):
-        """Set up the user interface of the main screen"""
-        saying = QLabel(self)
-        saying.move(100, 100)
-        saying.setText('Learning always makes you happy.')
+    def setup(self):
+        """Set up self"""
+        pass
 
+class InfoLog(QLabel):
+    """A log in the bottom of a QWidget that logs the information"""
+    
+    def __init__(self, parent: QWidget = None, height=20):
+        super().__init__()
+        self.parent = parent
+        self.height = height
+        self.setup()
+        
+    def setup(self):
+        if self.parent:
+            self.setParent(self.parent)
+            self.resize(self.parent.width(), self.height)
+            self.move(3, self.parent.height() - self.height)
+        else:
+            self.resize(1000, 50)
+            
+    def log(self, log_msg=None):
+        self.setText(log_msg)
+        
+    
+        
+        
+        
 
 if __name__ == '__main__':
     main_window = MainWindow()
