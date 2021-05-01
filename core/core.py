@@ -3,8 +3,6 @@ import os, sys, shutil
 import zlib, json, io
 import logging
 
-COMPRESS_LEVEL = 6
-
 
 class Notebook:
     """A notebook by a dict
