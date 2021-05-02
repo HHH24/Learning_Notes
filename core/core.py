@@ -1,16 +1,20 @@
 #! -*- coding: utf-8 -*-
 import os, sys, shutil
 import zlib, json, io
-import logging
+import logging, string
 
+FORMAT = 'format'
 
 class Notebook:
     """A notebook by a dict
     - {'file1': 'value1', 'file2': 'value2', 'list1': ['file1.1', 'file2.2']}"""
-    
+
+    # Initialization
     def __init__(self, note_dict: dict):
         self.note_dict = note_dict
-        
+
+
+    # Compression and decompression
     @staticmethod
     def compress(to_comp: dict):
         """Returns compressed bytes
@@ -29,19 +33,39 @@ class Notebook:
         dc_bytes = zlib.decompress(to_decomp)
         dc_str = dc_bytes.decode()
         decomped = eval(dc_str)
-        
+
         # Returns the comped and its chunk_size
         return decomped
 
+    def comp_self(self):
+        return Notebook.compress(self.note_dict)
+
+
+    # Analisis
+    # format example:(('name', str), ':', ('isman', bool))
+    @staticmethod
+    def analize(to_analize: dict):
+        if FORMAT not in to_analize.keys():
+            raise AnalisisError('no formats in dict:%s'
+                                %(to_analize.__repr__()))
+            return
+        fm = to_analize[FORMAT]
+        # TODO: return a string.Template
+
+
+
+class AnalisisError(Exception):
+    """Only trigers when analizing a notebook-dict"""
+    pass
+
 
 if __name__ == '__main__':
+    """Test if exceptions"""
     td = {'file1': 'value1', 'file2': 'value2', 'list1': ['file1.1', 'file2.2']}
     test_notebook1 = Notebook(td)
     
     a = Notebook.compress(test_notebook1.note_dict)
     a1 = Notebook.decompress(a)
-    
-    assert a1 == test_notebook1.note_dict, \
-    'a1 does not equal to the original dict'
+
     
     
