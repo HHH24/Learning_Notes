@@ -1,9 +1,10 @@
 #! -*- coding: utf-8 -*-
 import os, sys, shutil
 import zlib, json, io
-import logging, string
+import logging, string, warnings
 
 FORMAT = 'format'
+CONTENT = 'content'
 
 class Notebook:
     """A notebook by a dict
@@ -37,21 +38,49 @@ class Notebook:
         # Returns the comped and its chunk_size
         return decomped
 
-    def comp_self(self):
+    def compress_self(self):
         return Notebook.compress(self.note_dict)
 
 
     # Analisis
     # format example:(('name', str), ':', ('isman', bool))
     @staticmethod
-    def analize(to_analize: dict):
+    def analize(to_analize: dict, add_space = True):
         if FORMAT not in to_analize.keys():
             raise AnalisisError('no formats in dict:%s'
                                 %(to_analize.__repr__()))
             return
         fm = to_analize[FORMAT]
-        # TODO: return a string.Template
 
+        # TODO: Get a Formatting template
+        template = ''
+        first = True
+        for char in fm:
+            
+            if add_space and not first:
+                template += ' '
+                
+            if char[1] == True:
+                # It's an input!
+                template += '{%s}'%(char[0])
+            else:
+                # It's a constant!
+                template += char[0]
+                
+            if first:
+                first = False
+            
+
+        # Format the full dict into a list
+        formatted = []
+        for content in to_analize[CONTENT]:
+            formatted.append(template.format(**content))
+
+        # Return the formatted list
+        return formatted
+
+    def analize_self(self):
+        return Notebook.analize(self.note_dict)
 
 
 class AnalisisError(Exception):
